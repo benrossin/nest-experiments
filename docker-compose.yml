@@ -1,0 +1,39 @@
+services:
+  monumentales-postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - '5432:5432'
+    volumes:
+      - monumentales-docker-nest-postgres:/var/lib/postgresql/data
+    networks:
+      - monumentales-app-nest
+
+  monumentales-api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    command: npm run start:dev
+    ports:
+      - 3333:3333
+    depends_on:
+      - monumentales-postgres
+    networks:
+      - monumentales-app-nest
+
+volumes:
+  monumentales-docker-nest-postgres:
+
+networks:
+  monumentales-app-nest:
+    driver: bridge
