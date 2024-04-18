@@ -52,7 +52,7 @@ async function bootstrap() {
    */
   app.use(['/api/docs', '/api/docs/*'], expressBasicAuth({ challenge: true, users: { admin: configService.get<string>('SWAGGER_DOC_PWD') } }));
   const config = new DocumentBuilder()
-    .setTitle('Monumentales')
+    .setTitle('Recipe API')
     .setVersion('1.0')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, accessTokenKey)
     .build();

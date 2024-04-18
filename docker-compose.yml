@@ -1,5 +1,5 @@
 services:
-  monumentales-postgres:
+  recipe-app-postgres:
     image: postgres
     restart: always
     environment:
@@ -10,11 +10,11 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - monumentales-docker-nest-postgres:/var/lib/postgresql/data
+      - recipe-app-docker-nest-postgres:/var/lib/postgresql/data
     networks:
-      - monumentales-app-nest
+      - recipe-app-nest
 
-  monumentales-api:
+  recipe-app-api:
     build:
       dockerfile: Dockerfile
       context: .
@@ -27,13 +27,13 @@ services:
     ports:
       - 3333:3333
     depends_on:
-      - monumentales-postgres
+      - recipe-app-postgres
     networks:
-      - monumentales-app-nest
+      - recipe-app-nest
 
 volumes:
-  monumentales-docker-nest-postgres:
+  recipe-app-docker-nest-postgres:
 
 networks:
-  monumentales-app-nest:
+  recipe-app-nest:
     driver: bridge

@@ -183,10 +183,7 @@ export class AuthService {
   async transformUserToJwtPayload(user: User): Promise<JwtPayloadDto> {
     return {
       sub: user.id,
-      username: user.username,
-      avatar: user.avatar,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      thumbnail: user.thumbnail,
       refreshToken: user.refreshToken,
       email: user.email,
       role: user.role,
